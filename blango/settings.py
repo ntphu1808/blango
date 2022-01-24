@@ -45,6 +45,8 @@ class Dev(Configuration):
     CSRF_COOKIE_SAMESITE = 'None'
     SESSION_COOKIE_SAMESITE = 'None'
 
+    
+
     # Application definition
 
     INSTALLED_APPS = [
@@ -61,6 +63,7 @@ class Dev(Configuration):
     #extensions
         "crispy_forms",
         "crispy_bootstrap5",
+        "debug_toolbar",
     ]
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
     CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -73,7 +76,11 @@ class Dev(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
+    
+    INTERNAL_IPS = ["192.168.11.179"] #Used for DjDT
+
     PASSWORD_HASHERS = [
       'django.contrib.auth.hashers.Argon2PasswordHasher',
       'django.contrib.auth.hashers.PBKDF2PasswordHasher',
