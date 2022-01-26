@@ -25,6 +25,8 @@ class Dev(Configuration):
     # Admin user
     ADMINS = [("mainuser", "ntphu081995@gmail.com"), ]
 
+    AUTH_USER_MODEL = "blango_auth.User"
+
 
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -58,6 +60,7 @@ class Dev(Configuration):
         'django.contrib.staticfiles',
 
     # my own projects
+        'blango_auth',
         'blog',
 
     #extensions
@@ -209,3 +212,4 @@ class Prod(Dev):
     SECRET_KEY = values.SecretValue()
     ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io"])
     #DATABASES = values.DatabaseURLValue(f"sqlite:///{BASE_DIR}/db.sqlite3")
+    
