@@ -57,6 +57,7 @@ class Dev(Configuration):
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
+        "django.contrib.sites",
         'django.contrib.staticfiles',
 
     # my own projects
@@ -67,7 +68,19 @@ class Dev(Configuration):
         "crispy_forms",
         "crispy_bootstrap5",
         "debug_toolbar",
+        "allauth",  # for social Login
+        "allauth.account", # for social Login
+        "allauth.socialaccount", # for social Login
+        "allauth.socialaccount.providers.google", # for social providers (Google) Login
     ]
+    SITE_ID = 1  # for social Login
+
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None #when Django Allauth creates a User object from a social account login
+    ACCOUNT_EMAIL_REQUIRED = True #it will generate it a username based on the user ID at the third party
+    ACCOUNT_USERNAME_REQUIRED = False #Since our custom User model doesn’t have a username field
+    ACCOUNT_AUTHENTICATION_METHOD = "email" #Django Allauth will fail, unless we make some settings changes.
+    #ACCOUNT_EMAIL_VERIFICATION = True #Used for two step signup accounts
+
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
     CRISPY_TEMPLATE_PACK = "bootstrap5"
 
