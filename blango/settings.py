@@ -25,7 +25,7 @@ class Dev(Configuration):
     # Admin user
     ADMINS = [("mainuser", "ntphu081995@gmail.com"), ]
 
-    AUTH_USER_MODEL = "blango_auth.User"
+    AUTH_USER_MODEL = "blango_auth.User"    # used for custom user model
 
 
     # Quick-start development settings - unsuitable for production
@@ -179,7 +179,7 @@ class Dev(Configuration):
 
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-    LOGGING = {
+    LOGGING = {     # used for log out the logging message
         "version": 1,
         "disable_existing_loggers": False,
         "filters": {
