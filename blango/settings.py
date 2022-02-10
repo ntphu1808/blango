@@ -72,6 +72,7 @@ class Dev(Configuration):
         "allauth.account", # for social Login
         "allauth.socialaccount", # for social Login
         "allauth.socialaccount.providers.google", # for social providers (Google) Login
+        "rest_framework",
     ]
     SITE_ID = 1  # for social Login
 
