@@ -72,9 +72,18 @@ class Dev(Configuration):
         "allauth.account", # for social Login
         "allauth.socialaccount", # for social Login
         "allauth.socialaccount.providers.google", # for social providers (Google) Login
-        "rest_framework",
+        "rest_framework",    # rest framework
+        "rest_framework.authtoken",
     ]
     SITE_ID = 1  # for social Login
+
+    REST_FRAMEWORK = {   # add settings for rest_framework
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+      ]
+    }
 
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None #when Django Allauth creates a User object from a social account login
     ACCOUNT_EMAIL_REQUIRED = True #it will generate it a username based on the user ID at the third party
