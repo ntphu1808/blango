@@ -78,10 +78,10 @@ class Dev(Configuration):
     SITE_ID = 1  # for social Login
 
     REST_FRAMEWORK = {   # add default settings for rest_framework
-      "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
+      "DEFAULT_AUTHENTICATION_CLASSES": [   #These are the default value for the authentication setting and it's always being here
+        "rest_framework.authentication.BasicAuthentication",   #required
+        "rest_framework.authentication.SessionAuthentication",  #required
+        "rest_framework.authentication.TokenAuthentication",   #required
       ],
       "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
