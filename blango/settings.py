@@ -74,6 +74,7 @@ class Dev(Configuration):
         "allauth.socialaccount.providers.google", # for social providers (Google) Login
         "rest_framework",    # rest framework
         "rest_framework.authtoken",
+        "drf_yasg", #swagger UI
     ]
     SITE_ID = 1  # for social Login
 
@@ -241,4 +242,10 @@ class Prod(Dev):
     SECRET_KEY = values.SecretValue()
     ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io"])
     #DATABASES = values.DatabaseURLValue(f"sqlite:///{BASE_DIR}/db.sqlite3")
-    
+    SWAGGER_SETTINGS = {   # used for swagger UI
+    "SECURITY_DEFINITIONS": {
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+        "Basic": {"type": "basic"},
+        }
+    }
+
