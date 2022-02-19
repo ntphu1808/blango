@@ -1,16 +1,22 @@
 from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.authtoken import views
+from rest_framework.routers import DefaultRouter # add routers
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 import os
-
-
 from blog.api.views import *
 
+
+router = DefaultRouter()
+router.register("tags", TagViewSet) #register the paths for Tags api view
+router.register("posts", PostViewSet) #register the paths for Post api view
+
+#we can customise the url name of router.register by passing it the third argument router.register("posts", PostViewSet, basename)
+
 urlpatterns = [
-    path("posts/", PostList.as_view(), name="api_post_list"),
-    path("posts/<int:pk>", PostDetail.as_view(), name="api_post_detail"),
+    # path("posts/", PostList.as_view(), name="api_post_list"), These two lines are replaced by the router.register("posts", PostViewSet)
+    # path("posts/<int:pk>", PostDetail.as_view(), name="api_post_detail"),
     path("users/<str:email>", UserDetail.as_view(), name="api_user_detail"), #user detail path with the argument by email
     path("auth/", include("rest_framework.urls")),   #add the authentication link.
     path("token-auth/", views.obtain_auth_token), #used for generating a token for clients
@@ -38,4 +44,8 @@ urlpatterns += [   # used for swagger UI
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
+]
+
+urlpatterns += [
+    path("", include(router.urls)), #used for routers
 ]
