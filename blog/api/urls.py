@@ -48,4 +48,10 @@ urlpatterns += [   # used for swagger UI
 
 urlpatterns += [
     path("", include(router.urls)), #used for routers
+    path(      #used for url-based filtering
+        "posts/by-time/<str:period_name>/",
+        PostViewSet.as_view({"get": "list"}),
+        name="posts-by-time",
+    ),
 ]
+
