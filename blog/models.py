@@ -5,6 +5,10 @@ from django.contrib.contenttypes.models import ContentType
 # Create your models here.
 class Tag(models.Model):
     value = models.TextField(max_length=100, unique=True)
+
+    class Meta:  #since the Tag model doesn't have any ordered field, so we have to set the value field in alphabetical order so the Pagination can work out.
+        ordering = ["value"]
+
     def __str__(self):
         return self.value
 

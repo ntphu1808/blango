@@ -75,6 +75,7 @@ class Dev(Configuration):
         "rest_framework",    # rest framework
         "rest_framework.authtoken",
         "drf_yasg", #swagger UI
+        "django_filters", # django_filter
     ]
     SITE_ID = 1  # for social Login
 
@@ -99,6 +100,12 @@ class Dev(Configuration):
         "user_sustained": "5000/day",
         "user_burst": "100/minute",
         },
+      "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination", #used for pagination
+      "PAGE_SIZE": 100, 
+      "DEFAULT_FILTER_BACKENDS": [ # used for django-filter
+            "django_filters.rest_framework.DjangoFilterBackend",
+            "rest_framework.filters.OrderingFilter", #used for ordering the filter results
+        ],
     }
 
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None #when Django Allauth creates a User object from a social account login

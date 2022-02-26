@@ -19,9 +19,17 @@ from django.utils import timezone # as above
 from datetime import timedelta   #used for url-based filtering
 from django.http import Http404  # as above
 
+from .filters import PostFilterSet
+
 class PostViewSet(viewsets.ModelViewSet): #this single class replaces the both classes below
     permission_classes = [AuthorModifyOrReadOnly | IsAdminUserForObject]
     queryset = Post.objects.all()
+
+    # filterset_fields = ["author", "tags"] # used for django filter
+
+    filterset_class = PostFilterSet #used for FilterSet class
+
+    ordering_fields = ["published_at", "author", "title", "slug"] #used for ordering the fields
 
     def get_queryset(self):
         if self.request.user.is_anonymous:
@@ -71,6 +79,14 @@ class PostViewSet(viewsets.ModelViewSet): #this single class replaces the both c
         if request.user.is_anonymous:
             raise PermissionDenied("You must be logged in to see which Posts are yours")
         posts = self.get_queryset().filter(author=request.user)
+
+        page = self.paginate_queryset(posts) #used for paginating the url /api/v1/posts/mine/
+
+        if page is not None:  #if there is capable of paginating then do it
+            serializer = PostSerializer(page, many=True, context={"request": request})
+            return self.get_paginated_response(serializer.data)
+
+        #otherwise, we return the original behavior
         serializer = PostSerializer(posts, many=True, context={"request": request})
         return Response(serializer.data)
 
@@ -105,6 +121,14 @@ class TagViewSet(viewsets.ModelViewSet):
     @action(methods=["get"], detail=True, name="Posts with the Tag")
     def posts(self, request, pk=None):
         tag = self.get_object()
+
+        page = self.paginate_queryset(tag.posts.all()) #tag.posts is related field between tag and post models
+        if page is not None:
+            post_serializer = PostSerializer(
+                page, many=True, context={"request": request}
+            )
+            return self.get_paginated_response(post_serializer.data)
+        
         post_serializer = PostSerializer(
             tag.posts, many=True, context={"request": request}
         )

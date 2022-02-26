@@ -43,7 +43,8 @@ class PostApiTestCase(TestCase):
 
   def test_post_list(self):
     resp = self.client.get("/api/v1/posts/")
-    data = resp.json()
+    # data = resp.json() #original
+    data = resp.json()["results"] #after paginating, the reponse returns the Post objects as the value of the result key ({"results": [{post1}, {post2}]})
     self.assertEqual(len(data), 2)
 
     for post_dict in data:
