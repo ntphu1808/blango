@@ -15,6 +15,8 @@ import os
 from configurations import Configuration, values
 import dj_database_url
 
+from datetime import timedelta #used for setting the alive time of access token and refresh token of JWT
+
 class Dev(Configuration):
 
 
@@ -84,6 +86,7 @@ class Dev(Configuration):
         "rest_framework.authentication.BasicAuthentication",   #required
         "rest_framework.authentication.SessionAuthentication",  #required
         "rest_framework.authentication.TokenAuthentication",   #required
+        "rest_framework_simplejwt.authentication.JWTAuthentication" #used for JSON Web Token
       ],
       "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
@@ -106,6 +109,11 @@ class Dev(Configuration):
             "django_filters.rest_framework.DjangoFilterBackend",
             "rest_framework.filters.OrderingFilter", #used for ordering the filter results
         ],
+    }
+
+    SIMPLE_JWT = {  #set the time alive for JWT
+        "ACCESS_TOKEN_LIFETIME": timedelta(days=1), #access token lasts 1 day
+        "REFRESH_TOKEN_LIFETIME": timedelta(days=7), #refresh token lasts 7 days
     }
 
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None #when Django Allauth creates a User object from a social account login

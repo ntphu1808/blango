@@ -7,6 +7,8 @@ from drf_yasg.views import get_schema_view
 import os
 from blog.api.views import *
 
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView #used for JSON Web Token
+
 
 router = DefaultRouter()
 router.register("tags", TagViewSet) #register the paths for Tags api view
@@ -20,6 +22,8 @@ urlpatterns = [
     path("users/<str:email>", UserDetail.as_view(), name="api_user_detail"), #user detail path with the argument by email
     path("auth/", include("rest_framework.urls")),   #add the authentication link.
     path("token-auth/", views.obtain_auth_token), #used for generating a token for clients
+    path("jwt/", TokenObtainPairView.as_view(), name="jwt_obtain_pair"), #used for authentication first and then obtain the token
+    path("jwt/refresh/", TokenRefreshView.as_view(), name="jwt_refresh"), #used for refresh the access token
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
