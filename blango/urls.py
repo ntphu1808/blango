@@ -18,6 +18,8 @@ from django.urls import path, include
 import blango_auth.views
 from django_registration.backends.activation.views import RegistrationView
 from blango_auth.forms import BlangoRegistrationForm
+from django.conf import settings
+from django.conf.urls.static import static #used for serve static files
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,4 +35,9 @@ urlpatterns = [
     path("api/v1/", include("blog.api.urls")),
 ]
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

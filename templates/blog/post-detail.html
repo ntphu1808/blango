@@ -7,6 +7,14 @@
         {% include "blog/post-byline.html" %}
     {% endcol %}
 {% endrow %}
+{% if post.hero_image %} <!-- used for image versalite field -->
+    {% row %}
+        {% col %}
+            <img class="img-fluid" src="{{ post.hero_image.url }}">
+            <!--The link to the image in the media directory -->
+        {% endcol %}
+    {% endrow %}
+{% endif %}
 {% row %}
     {% col %}
         {{ post.content|safe }}
