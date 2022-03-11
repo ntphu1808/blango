@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import blango_auth.views
-from django_registration.backends.activation.views import RegistrationView
-from blango_auth.forms import BlangoRegistrationForm
+from django_registration.backends.activation.views import RegistrationView  #import for setting users sign up page
+from blango_auth.forms import BlangoRegistrationForm         # custom register account form
 from django.conf import settings
 from django.conf.urls.static import static #used for serve static files
 
@@ -27,10 +27,10 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/profile/", blango_auth.views.profile, name="profile"),
     path(
-    "accounts/register/",
-    RegistrationView.as_view(form_class=BlangoRegistrationForm),
+    "accounts/register/",                                        # create the path to the register account page
+    RegistrationView.as_view(form_class=BlangoRegistrationForm), # using our own form class BlangoRegistrationForm
     name="django_registration_register",),
-    path("accounts/", include("django_registration.backends.activation.urls")),
+    path("accounts/", include("django_registration.backends.activation.urls")), # we have to add this path for two-step activate accounts
     path("accounts/", include("allauth.urls")),
     path("api/v1/", include("blog.api.urls")),
 ]
