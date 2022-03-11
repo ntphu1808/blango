@@ -154,6 +154,10 @@ class Dev(Configuration):
       "django_filters",
       "versatileimagefield", #used for DRF Imagefield
   ]
+  
+  CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  #add bootstrap 5 pack for using crispy form
+  CRISPY_TEMPLATE_PACK = "bootstrap5"
+  
 
   MIDDLEWARE = [
       'django.middleware.security.SecurityMiddleware',
@@ -248,8 +252,6 @@ class Dev(Configuration):
   # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
   DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-  CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-  CRISPY_TEMPLATE_PACK = "bootstrap5"
   
   EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
   ACCOUNT_ACTIVATION_DAYS = 7
