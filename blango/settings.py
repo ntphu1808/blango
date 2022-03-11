@@ -158,6 +158,8 @@ class Dev(Configuration):
   CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  #add bootstrap 5 pack for using crispy form
   CRISPY_TEMPLATE_PACK = "bootstrap5"
   
+  ACCOUNT_ACTIVATION_DAYS = 7 # used for custom user model with email login
+  
 
   MIDDLEWARE = [
       'django.middleware.security.SecurityMiddleware',
@@ -254,7 +256,6 @@ class Dev(Configuration):
   DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
   
   EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-  ACCOUNT_ACTIVATION_DAYS = 7
   
   SITE_ID = 1
   ACCOUNT_USER_MODEL_USERNAME_FIELD = None
