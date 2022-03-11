@@ -158,7 +158,8 @@ class Dev(Configuration):
   CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  #add bootstrap 5 pack for using crispy form
   CRISPY_TEMPLATE_PACK = "bootstrap5"
   
-  ACCOUNT_ACTIVATION_DAYS = 7 # used for custom user model with email login
+  ACCOUNT_ACTIVATION_DAYS = 7 # An int indicating how long (in days) after signup an account has in which to activate.
+                              # This setting is required if using one of the built-in two-step workflows:
   
 
   MIDDLEWARE = [
